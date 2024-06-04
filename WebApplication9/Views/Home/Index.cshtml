@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Number Base Conversion</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function convertNumber(toBase) {
+            var number = $("#txtNumber").val();
+            $.ajax({
+                url: `/api/conversions/convert?number=${number}&toBase=${toBase}`,
+                type: 'GET',
+                success: function (result) {
+                    $("#lblResult").text(`Result (${toBase}): ${result}`);
+                    $("#lblError").text("");
+                },
+                error: function (xhr) {
+                    $("#lblError").text(xhr.responseText);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <input type="number" id="txtNumber" placeholder="Enter Number" />
+    <button onclick="convertNumber(2)">To Binary</button>
+    <button onclick="convertNumber(8)">To Octal</button>
+    <button onclick="convertNumber(16)">To Hexadecimal</button>
+
+    <p id="lblResult"></p>
+    <p id="lblError" style="color: red;"></p>
+</body>
+</html>
+
